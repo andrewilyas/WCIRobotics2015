@@ -3,12 +3,13 @@
 # Authors:
 # - Alexander Kitaev
 
+from cv import *
 from cv2 import *
 import numpy
 
 __package__ = "lib"
 
-TRESHOLD = 200
+THRESHOLD = 375
 # NOTE: This 'treshold' is effectively the minimum length of line to be detected.
 # This should be changed as needed, _and will probably be_.
 
@@ -18,8 +19,10 @@ TRESHOLD = 200
 def detectLines(image):
 	result = image
 	grayScaleImage = cvtColor(image, COLOR_BGR2GRAY)
-	edges = Canny(gray, 50, 150, apertureSize = 3)
-	lines = HoughLines(edges, 1, numpy.pi / 180, TRESHOLD)
+	edges = Canny(grayScaleImage, 50, 150, apertureSize = 3)
+	lines = HoughLines(edges, 1, (numpy.pi / 180), THRESHOLD)
+	if lines is None:
+		return None
 	for rho, theta in lines[0]:
 		a = numpy.cos(theta)
 		b = numpy.sin(theta)

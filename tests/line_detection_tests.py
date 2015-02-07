@@ -3,6 +3,9 @@
 __package__ = "tests"
 from lib import *
 from cv2 import *
+import sys
 
-image = imread("test.jpg")
+imagefile = sys.argv[1]
+
+image = imread(imagefile)
 imwrite("detected_lines.jpg", line_detection.detectLines(image))
