@@ -9,7 +9,7 @@ import numpy
 
 __package__ = "lib"
 
-THRESHOLD = 375
+THRESHOLD = 250
 # NOTE: This 'treshold' is effectively the minimum length of line to be detected.
 # This should be changed as needed, _and will probably be_.
 
