@@ -5,12 +5,13 @@
 
 from cv import *
 from cv2 import *
+import cv2
 import numpy
 
 __package__ = "lib"
 
 THRESHOLD = 250
-# NOTE: This 'treshold' is effectively the minimum length of line to be detected.
+# NOTE: This 'threshold' is effectively the minimum length of line to be detected.
 # This should be changed as needed, _and will probably be_.
 
 # detectLines(image) -> lines
@@ -19,8 +20,8 @@ THRESHOLD = 250
 def detectLines(image):
 	result = image
 	grayScaleImage = cvtColor(image, COLOR_BGR2GRAY)
-	edges = Canny(grayScaleImage, 50, 150, apertureSize = 3)
-	lines = HoughLines(edges, 1, (numpy.pi / 180), THRESHOLD)
+	edges = cv2.Canny(grayScaleImage, threshold1=300, threshold2=300,apertureSize = 3)
+	lines = cv2.HoughLines(edges,1,CV_PI/180,200)
 	if lines is None:
 		return None
 	for rho, theta in lines[0]:
