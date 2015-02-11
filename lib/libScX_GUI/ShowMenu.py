@@ -8,6 +8,7 @@ myself = current_module = sys.modules[__name__];
 #WARNING:
 #After show_menu() is invoked, the menu's buttons are reset!
 
+#This is a very basic menu
 def init_menu():
     myself.root = Tk()
     myself.frame = Frame(myself.root)
