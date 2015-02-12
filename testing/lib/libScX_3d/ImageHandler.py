@@ -45,6 +45,7 @@ def filterImage(imgData, targetBGR1, targetBGR2):
             tB1, tG1, tR1 = targetBGR1
             tB2, tG2, tR2 = targetBGR2
             inRange = False
+            #Why numpy? OpenCV says it's faster: http://goo.gl/2GyEgQ
             if tB2 <= outImgData.item(x,y,0) <= tB1:
                 if tG2 <= outImgData.item(x,y,1) <= tG1:
                     if tR2 <= outImgData.item(x,y,2) <= tR1:

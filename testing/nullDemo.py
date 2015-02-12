@@ -43,7 +43,7 @@ def testFilter():
     file = lib.libScX_GUI.FileChooser.fileChooser(title="Image to Process")
     imgData, extension = lib.libScX_3d.ImageHandler.readCV2Image(file)
     dstFile = "img/dst" + extension #Set destination path
-    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(255,100,100), targetBGR2=(0,0,0))
+    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,150,150))
     lib.libScX_3d.ImageHandler.writeCV2Image(imgData, dstFile) #Write the image to disk
     lib.libScX_GUI.ShowImage.showImage(imageFile=dstFile, caption="Result") #Show the image
 
