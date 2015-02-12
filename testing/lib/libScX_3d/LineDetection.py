@@ -64,6 +64,8 @@ def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houg
 
 def writeLinesToImage(lines,imgData):
     newImgData = imgData
+    if lines is None:
+        return imgData
     for rho,theta in lines:
         a = numpy.cos(theta)
         b = numpy.sin(theta)
