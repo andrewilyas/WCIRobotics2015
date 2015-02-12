@@ -37,7 +37,7 @@ def readTKImage(path):
 #targetBGR2: The second RGB of the target color range
 #Example: filterImage(imgData, (255,255,255), (0,0,0))
 #WARNING THE NUMBERS IN targetBGR1 SHOULD ALWAYS BE BIGGER THAT THE NUMBERS IN targetBGR2
-def filterImage(imgData, targetBGR1, targetBGR2):
+def filterImage(imgData, targetBGR1, targetBGR2, foregroundColor=None, backgroundColor=(0,0,0)):
     outImgData = imgData
     rows, cols, somethingUseless = outImgData.shape
     for x in range(0,rows-1):
@@ -50,8 +50,14 @@ def filterImage(imgData, targetBGR1, targetBGR2):
                 if tG2 <= outImgData.item(x,y,1) <= tG1:
                     if tR2 <= outImgData.item(x,y,2) <= tR1:
                         inRange = True
+                        if foregroundColor is not None:
+                            b,g,r = foregroundColor
+                            outImgData.itemset((x,y,0),b)
+                            outImgData.itemset((x,y,1),g)
+                            outImgData.itemset((x,y,2),r)
             if not inRange:
-                outImgData.itemset((x,y,0),0)
-                outImgData.itemset((x,y,1),0)
-                outImgData.itemset((x,y,2),0)
+                b,g,r = backgroundColor
+                outImgData.itemset((x,y,0),b)
+                outImgData.itemset((x,y,1),g)
+                outImgData.itemset((x,y,2),r)
     return outImgData

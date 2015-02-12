@@ -39,11 +39,23 @@ def deleteOutputFile():
             os.remove("img/" + f)
             print "Removed: img/" + f
 
+#Uses the color filter to search for yellow
 def testFilter():
     file = lib.libScX_GUI.FileChooser.fileChooser(title="Image to Process")
     imgData, extension = lib.libScX_3d.ImageHandler.readCV2Image(file)
     dstFile = "img/dst" + extension #Set destination path
     imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,150,150))
+    lib.libScX_3d.ImageHandler.writeCV2Image(imgData, dstFile) #Write the image to disk
+    lib.libScX_GUI.ShowImage.showImage(imageFile=dstFile, caption="Result") #Show the image
+
+#Uses the color filter and then applies custom line recognition to it!
+def testFilterLine():
+    file = lib.libScX_GUI.FileChooser.fileChooser(title="Image to Process")
+    imgData, extension = lib.libScX_3d.ImageHandler.readCV2Image(file)
+    dstFile = "img/dst" + extension #Set destination path
+    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,150,150), foregroundColor=(255,255,255)) #Search for my yellow!
+    lines = lib.libScX_3d.LineDetection.detectLines(imgData, cannyThreshold1=100, cannyThreshold2=100, houghLinesThreshold=100, startingSensitivity=100)
+    imgData = lib.libScX_3d.LineDetection.writeLinesToImage(lines=lines, imgData=imgData) #Write the lines to the image data
     lib.libScX_3d.ImageHandler.writeCV2Image(imgData, dstFile) #Write the image to disk
     lib.libScX_GUI.ShowImage.showImage(imageFile=dstFile, caption="Result") #Show the image
 
@@ -58,6 +70,7 @@ def main(argv=None):
     lib.libScX_GUI.ShowMenu.add_button(text="Test Line Recognition",side="LEFT",function=testLineBasic)
     lib.libScX_GUI.ShowMenu.add_button(text="Delete Image Output",side="LEFT",function=deleteOutputFile)
     lib.libScX_GUI.ShowMenu.add_button(text="Test Filter Image",side="LEFT",function=testFilter)
+    lib.libScX_GUI.ShowMenu.add_button(text="Test Filter+Line Recognition", side="LEFT",function=testFilterLine)
     lib.libScX_GUI.ShowMenu.show_menu()
 
 if __name__ == "__main__":
