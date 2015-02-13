@@ -20,8 +20,8 @@ THRESHOLD = 250
 def detectLines(image):
 	result = image
 	grayScaleImage = cvtColor(image, COLOR_BGR2GRAY)
-	edges = cv2.Canny(grayScaleImage, threshold1=300, threshold2=300,apertureSize = 3)
-	lines = cv2.HoughLines(edges,1,CV_PI/180,200)
+	edges = cv2.Canny(grayScaleImage, threshold1 = 300, threshold2 = 300, apertureSize = 3)
+	lines = cv2.HoughLines(edges, 1, (CV_PI / 180), 200)
 	if lines is None:
 		return None
 	for rho, theta in lines[0]:
