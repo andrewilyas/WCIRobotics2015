@@ -1,0 +1,5 @@
+cloning:	git clone ______
+pulling:	git pull
+adding:		git add --all
+commit:		git commit -am "stuff"
+pushing:	git push origin master
