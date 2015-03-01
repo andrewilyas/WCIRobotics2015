@@ -1,3 +1,0 @@
-It has been discovered that...
-
-RAKSHITH LOVES BOYS!
