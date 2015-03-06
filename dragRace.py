@@ -7,6 +7,9 @@ while True:
     _,f = c.read() #Getting the image from the camera
     f = cv2.cvtColor(f, CV_BGR2GRAY)
     cv2.imshow("Webcam feed", f) #Show the image with Title "Webcam Feed"
+    arrCoords = lineDetect(f)
+    for line in arrCoords:
+        
     if cv2.waitKey(5) == 27: #Wait for 5ms for a Ctrl+W, break if found
         break
 cv2.destroyAllWindows()
