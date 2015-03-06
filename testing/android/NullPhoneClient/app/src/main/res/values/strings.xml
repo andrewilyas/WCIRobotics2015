@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NullPhoneClient</string>
+
+    <string name="title">NullPhoneClient v0.1</string>
+    <string name="instructions">Enter the IP:</string>
+    <string name="startButton">Start</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_server">ServerActivity</string>
+    <string name="ServerTitle">Server is running... IP is:</string>
+    <string name="stopButtonValue">Stop Server</string>
+</resources>

@@ -1,6 +1,7 @@
-import sys
+__author__ = 'nulldev'
+#Author: nulldev (Git: null-dev)
 
-__author__ = 'hc'
+import sys
 
 #This opens a file chooser
 

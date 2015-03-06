@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LaunchActivity">
+
+    <TextView android:text="@string/title" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:enabled="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="false"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/instructions"
+        android:id="@+id/instructions"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/editIP"
+        style="@style/Base.TextAppearance.AppCompat.Display1" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editIP"
+        android:enabled="true"
+        android:editable="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:hint="ex: 192.168.1.2"
+        android:lines="1"
+        android:maxLines="1"
+        android:imeActionLabel="Start"
+        android:inputType="textUri" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/startButton"
+        android:id="@+id/startButton"
+        android:layout_below="@+id/editIP"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:onClick="startServer"/>
+
+</RelativeLayout>

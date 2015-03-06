@@ -1,4 +1,5 @@
-__author__ = 'hc'
+__author__ = 'nulldev'
+#Author: nulldev (Git: null-dev)
 
 from Tkinter import *
 

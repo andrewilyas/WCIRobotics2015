@@ -1,9 +1,13 @@
 __author__ = 'nulldev'
-#Author: nulldev (Git: null-dev)
+# Author: nulldev (Git: null-dev)
 
 import numpy
 import cv2
 from cv2.cv import CV_BGR2GRAY, CV_PI
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#!WARNING THIS MAY CLOSE, THE CALIBRATION CODE IS NOT SPLIT OFF YET!
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #A line detection implementation that auto-adjusts thresholds and sensitivities!
 
@@ -62,19 +66,3 @@ def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houg
                 newCannyThreshold1 = newCannyThreshold1 + sensitivity
                 newCannyThreshold2 = newCannyThreshold2 + sensitivity
                 linesFound = 0
-
-def writeLinesToImage(lines,imgData):
-    newImgData = imgData
-    if lines is None:
-        return imgData
-    for rho,theta in lines:
-        a = numpy.cos(theta)
-        b = numpy.sin(theta)
-        x0 = a*rho
-        y0 = b*rho
-        x1 = int(x0 + 1000*(-b))
-        y1 = int(y0 + 1000*(a))
-        x2 = int(x0 - 1000*(-b))
-        y2 = int(y0 - 1000*(a))
-        cv2.line(newImgData,(x1,y1),(x2,y2),(0,0,255),2)
-    return newImgData

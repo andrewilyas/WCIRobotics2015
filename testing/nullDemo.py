@@ -1,4 +1,5 @@
-__author__ = 'hc'
+__author__ = 'nulldev'
+#Author: nulldev (Git: null-dev)
 
 #This is the main script so yeah...
 #There is a lot of code in this, I will move it into files soon...
@@ -14,6 +15,7 @@ import lib.libScX_GUI.ShowMenu
 import lib.libScX_GUI.FileChooser
 import lib.libScX_3d.ImageHandler
 import lib.libScX_3d.LineDetection
+import lib.libScX_3d.ImageAI
 
 #This function just tests if you have installed ImageTK
 def showDemoImage():
@@ -44,7 +46,7 @@ def testFilter():
     file = lib.libScX_GUI.FileChooser.fileChooser(title="Image to Process")
     imgData, extension = lib.libScX_3d.ImageHandler.readCV2Image(file)
     dstFile = "img/dst" + extension #Set destination path
-    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,150,150))
+    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,120,100))
     lib.libScX_3d.ImageHandler.writeCV2Image(imgData, dstFile) #Write the image to disk
     lib.libScX_GUI.ShowImage.showImage(imageFile=dstFile, caption="Result") #Show the image
 
@@ -53,11 +55,16 @@ def testFilterLine():
     file = lib.libScX_GUI.FileChooser.fileChooser(title="Image to Process")
     imgData, extension = lib.libScX_3d.ImageHandler.readCV2Image(file)
     dstFile = "img/dst" + extension #Set destination path
-    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,150,150), foregroundColor=(255,255,255)) #Search for my yellow!
-    lines = lib.libScX_3d.LineDetection.detectLines(imgData, cannyThreshold1=100, cannyThreshold2=100, houghLinesThreshold=100, startingSensitivity=100)
+    imgData = lib.libScX_3d.ImageHandler.filterImage(imgData, targetBGR1=(150,255,255), targetBGR2=(0,120,100), foregroundColor=(255,255,255)) #Search for my yellow!
+    #lines = lib.libScX_3d.LineDetection.detectLines(imgData, threshold=10, cannyThreshold1=100, cannyThreshold2=100, houghLinesThreshold=25, startingSensitivity=100)
+    lines = lib.libScX_3d.LineDetection.detectLines(imgData)
     imgData = lib.libScX_3d.LineDetection.writeLinesToImage(lines=lines, imgData=imgData) #Write the lines to the image data
     lib.libScX_3d.ImageHandler.writeCV2Image(imgData, dstFile) #Write the image to disk
     lib.libScX_GUI.ShowImage.showImage(imageFile=dstFile, caption="Result") #Show the image
+
+#Does nothing but is a temporary function for testing things
+def testFeature():
+    tmp=None
 
 def main(argv=None):
     #Dynamically fill the arguments (Cause I'm smart...)
@@ -71,6 +78,7 @@ def main(argv=None):
     lib.libScX_GUI.ShowMenu.add_button(text="Delete Image Output",side="LEFT",function=deleteOutputFile)
     lib.libScX_GUI.ShowMenu.add_button(text="Test Filter Image",side="LEFT",function=testFilter)
     lib.libScX_GUI.ShowMenu.add_button(text="Test Filter+Line Recognition", side="LEFT",function=testFilterLine)
+    lib.libScX_GUI.ShowMenu.add_button(text="Get Line Equation", side="LEFT",function=testFeature)
     lib.libScX_GUI.ShowMenu.show_menu()
 
 if __name__ == "__main__":

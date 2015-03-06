@@ -1,4 +1,5 @@
-__author__ = 'hc'
+__author__ = 'nulldev'
+#Author: nulldev (Git: null-dev)
 
 #This shows an image file since image.show() is lame...
 

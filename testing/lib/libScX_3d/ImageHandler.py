@@ -1,8 +1,9 @@
+__author__ = 'nulldev'
+#Author: nulldev (Git: null-dev)
+
 import os
 import PIL
 import cv2
-
-__author__ = 'hc'
 
 #Deals with pictures :/
 
