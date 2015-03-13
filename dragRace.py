@@ -4,9 +4,11 @@ import cv2 #Importing OpenCV into the file
 import numpy as np #Import number processing library as np
 
 def polar2cart(rho, theta):     #converts polar to cart
-    x = rho*np.cos(theta)
-    y = rho*np.sin(theta)
-    return x,y
+    x = rho*np.cos(theta) - 1000*np.sin(theta)
+    y = rho*np.sin(theta) + 1000*np.cos(theta)
+    x2 = rho*np.cos(theta) + 1000*np.sin(theta)
+    y2 = rho*np.sin(theta) - 1000*np.cos(theta)
+    return [x, x2], [y, y2]
 
 def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houghLinesThreshold=200, startingSensitivity=100):
     #Some other variables...
