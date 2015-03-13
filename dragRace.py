@@ -57,13 +57,13 @@ def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houg
 
 c = cv2.VideoCapture(0) #Initialize the video capture instance, 0 refers to the webcam number
 while True:
-    _,f = im.read() #Getting the image from the camera
-    f = cv2.cvtColor(f, CV_BGR2GRAY)
+    _,f = c.read() #Getting the image from the camera
     arrCoords = detectLines(np.array(f))
     for line in arrCoords:
         x, y = polar2cart(line[0], line[1]) #Calls the polar2cart function        
         x1, x2, y1, y2 = x[0], x[1], y[0], y[1]
         cv2.line(f, (x1, y1), (x2, y2), (0,0,0))
+    f = cv2.cvtColor(f, CV_BGR2GRAY)
     cv2.imshow("Webcam feed", f) #Show the image with Title "Webcam Feed"
     if cv2.waitKey(5) == 27: #Wait for 5ms for a Ctrl+W, break if found
         break
