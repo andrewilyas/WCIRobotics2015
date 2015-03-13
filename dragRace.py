@@ -57,7 +57,7 @@ def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houg
 
 c = cv2.VideoCapture(0) #Initialize the video capture instance, 0 refers to the webcam number
 while True:
-    _,f = c.read() #Getting the image from the camera
+    _,f = im.read() #Getting the image from the camera
     f = cv2.cvtColor(f, CV_BGR2GRAY)
     arrCoords = detectLines(np.array(f))
     for line in arrCoords:
