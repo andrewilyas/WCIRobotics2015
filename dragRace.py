@@ -58,8 +58,10 @@ def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houg
 c = cv2.VideoCapture(0) #Initialize the video capture instance, 0 refers to the webcam number
 while True:
     _,f = c.read() #Getting the image from the camera
-    arrCoords = detectLines(np.array(f))
+    print f
+    arrCoords = detectLines(np.asarray(f[:,:]))
     for line in arrCoords:
+        print line
         x, y = polar2cart(line[0], line[1]) #Calls the polar2cart function        
         x1, x2, y1, y2 = x[0], x[1], y[0], y[1]
         cv2.line(f, (x1, y1), (x2, y2), (0,0,0))
