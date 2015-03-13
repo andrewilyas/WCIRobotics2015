@@ -59,7 +59,7 @@ c = cv2.VideoCapture(0) #Initialize the video capture instance, 0 refers to the 
 while True:
     _,f = c.read() #Getting the image from the camera
     f = cv2.cvtColor(f, CV_BGR2GRAY)
-    arrCoords = detectLines(f)
+    arrCoords = detectLines(np.array(f))
     for line in arrCoords:
         x, y = polar2cart(line[0], line[1]) #Calls the polar2cart function        
         x1, x2, y1, y2 = x[0], x[1], y[0], y[1]
