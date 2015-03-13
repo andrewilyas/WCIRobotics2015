@@ -22,7 +22,6 @@ def polar2cart(rho, theta):     #converts polar to cart
     return x,y
 
 def detectLines(src, threshold=5, cannyThreshold1=100, cannyThreshold2=100, houghLinesThreshold=200, startingSensitivity=100):
-
     #Some other variables...
     linesFound = 0
     thresholdFound = False
