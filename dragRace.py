@@ -9,7 +9,15 @@ while True:
     cv2.imshow("Webcam feed", f) #Show the image with Title "Webcam Feed"
     arrCoords = lineDetect(f)
     for line in arrCoords:
-        
+        x, y = polar2cart(line[0], line[1])
+        x1, x2, y1, y2 = x[0], x[1], y[0], y[1]
+        cv2.line(f, (x1, y1), (x2, y2), (0,0,0))
     if cv2.waitKey(5) == 27: #Wait for 5ms for a Ctrl+W, break if found
         break
 cv2.destroyAllWindows()
+
+def polar2cart(rho, theta):
+    x = rho*np.cos(theta)
+    y = rho*np.sin(theta)
+    return x,y
+
