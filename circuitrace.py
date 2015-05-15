@@ -4,6 +4,7 @@ import numpy
 import JBridge
 
 #JAVA IMPORTS
+#ANDREW DON'T KILL ME :P
 java = JBridge.java
 Boolean = java.lang.Boolean
 Byte = java.lang.Byte
