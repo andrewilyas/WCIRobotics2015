@@ -1,45 +1,9 @@
 __author__ = 'nulldev'
+
+#Python imports
 import math
 import numpy
 import JBridge
-
-#JAVA IMPORTS
-#ANDREW DON'T KILL ME :P
-java = JBridge.java
-Boolean = java.lang.Boolean
-Byte = java.lang.Byte
-Character = java.lang.Character
-Class = java.lang.Class
-ClassLoader = java.lang.ClassLoader
-ClassValue = java.lang.ClassValue
-Compiler = java.lang.Compiler
-Double = java.lang.Double
-Enum = java.lang.Enum
-Float = java.lang.Float
-InheritableThreadLocal = java.lang.InheritableThreadLocal
-Integer = java.lang.Integer
-Long = java.lang.Long
-Math = java.lang.Math
-Number = java.lang.Number
-Object = java.lang.Object
-Package = java.lang.Package
-Process = java.lang.Process
-ProcessBuilder = java.lang.ProcessBuilder
-Runtime = java.lang.Runtime
-RuntimePermissions = java.lang.RuntimePermissions
-SecurityManager = java.lang.SecurityManager
-Short = java.lang.Short
-StackTraceElement = java.lang.StackTraceElement
-StrictMath = java.lang.StrictMath
-String = java.lang.String
-StringBuffer = java.lang.StringBuffer
-StringBuilder = java.lang.StringBuilder
-System = java.lang.System
-Thread = java.lang.Thread
-ThreadGroup = java.lang.ThreadGroup
-ThreadLocal = java.lang.ThreadLocal
-Throwable = java.lang.Throwable
-Void = java.lang.Void
 
 MAX_SPEED = 1 # TODO: bug hardware and find this value
 # Author: nulldev (Git: null-dev)
