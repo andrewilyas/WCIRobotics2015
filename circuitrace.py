@@ -3,6 +3,9 @@ import math
 import numpy
 MAX_SPEED = 1 # TODO: bug hardware and find this value
 # Author: nulldev (Git: null-dev)
+
+# DON'T EXECUTE THIS, YOU WILL GET A VERY COOL INFINITE LOOP :P
+
 def main():
     while(True):
         print "ITER"
