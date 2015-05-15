@@ -5,6 +5,8 @@ __author__ = 'nulldev'
 import jpype
 import atexit
 
+java = jpype.java
+
 def close():
     if jpype.isJVMStarted() == True:
         jpype.java.lang.System.out.println ('Shutting down JVM...')

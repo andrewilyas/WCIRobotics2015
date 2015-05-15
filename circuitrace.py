@@ -1,6 +1,12 @@
 __author__ = 'nulldev'
 import math
 import numpy
+import JBridge
+
+#JAVA IMPORTS
+java = JBridge.java
+System = java.lang.System
+
 MAX_SPEED = 1 # TODO: bug hardware and find this value
 # Author: nulldev (Git: null-dev)
 
