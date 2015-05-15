@@ -4,8 +4,17 @@ __author__ = 'nulldev'
 
 import jpype
 import atexit
-print('Checking is JVM is started...')
-if jpype.isJVMStarted():
+
+def close():
+    if jpype.isJVMStarted() == True:
+        jpype.java.lang.System.out.println ('Shutting down JVM...')
+        jpype.shutdownJVM() 
+        print('JBridge closed!')
+    else:
+        print('JBridge not open!')
+
+print('Checking if JVM is started...')
+if jpype.isJVMStarted() == False:
     print('Getting default JVM path...')
     jvmPath = jpype.getDefaultJVMPath() 
     print('Starting JVM...')
@@ -15,8 +24,3 @@ if jpype.isJVMStarted():
     atexit.register(close)
 else:
     jpype.java.lang.System.out.println ('JVM is already running, not starting!')
-
-def close():
-    jpype.java.lang.System.out.println ('Shutting down JVM...')
-    jpype.shutdownJVM() 
-    print('JBridge closed!')
