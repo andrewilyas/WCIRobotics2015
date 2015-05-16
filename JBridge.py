@@ -16,6 +16,14 @@ def close():
     else:
         print('JBridge not open!')
 
+#Import classes
+def JImport(jclass):
+    if jpype.isJVMStarted() == False:
+        print('JVM not started! Cannot import class!')
+    else:
+        System.out.println("Importing " + jclass)
+        eval("__builtin__." + " = java.lang.Boolean")
+
 print('Checking if JVM is started...')
 if jpype.isJVMStarted() == False:
     print('Getting default JVM path...')
@@ -28,6 +36,7 @@ if jpype.isJVMStarted() == False:
 else:
     jpype.java.lang.System.out.println ('JVM is already running, not starting!')
 
+print('Importing java.lang package...')
 #For other programs to reference
 __builtin__.java = jpype.java
 __builtin__.jpype = jpype
@@ -68,3 +77,4 @@ __builtin__.ThreadGroup = java.lang.ThreadGroup
 __builtin__.ThreadLocal = java.lang.ThreadLocal
 __builtin__.Throwable = java.lang.Throwable
 __builtin__.Void = java.lang.Void
+System.out.println("JBridge intialized!");
