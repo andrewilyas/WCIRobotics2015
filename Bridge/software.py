@@ -53,6 +53,7 @@ class Arduino:
 
     def awaitAcknowledgement(self, command, callback):
         while self.con.inWaiting() == 0:
+            print "WAAAAAAAAAITING"
             pass
         response = self.con.read(size=self.con.inWaiting())
         while ord(response[-1]) != 255:
@@ -61,8 +62,8 @@ class Arduino:
             argslen = i[1]
             if argslen > 0:
                 args = []
-                for x in range(2, len(i) - 1):
-                    args.append(ord(i[x]))
+                for x in range(2, len(response) - 1):
+                    args.append(ord(response[x]))
                 self.invoke(callback, args)
             return True
         else:
@@ -82,7 +83,7 @@ class Arduino:
     def disconnect(self):
         self.con.close()
         print "Disconnected"
-    
+
     def toggleLed(self, pin, callback=None):
         self.sendCommand(_command.TOGGLE_LED, data=[pin], callback=callback)
 
@@ -112,13 +113,14 @@ def printresults(l):
         print "Got: " + str(i)
 
 def main():
-    arduino = Arduino("COM5")
+    arduino = Arduino("/dev/tty.usbmodem1421")
     while True:
         try:
-            x = input("Command\n> ")
+            x = raw_input("Command\n> ")
             if x == "drive forward":
-                speed = int(input("Speed\n> "))
-                arduino.drive(Direction.FORWARD, speed)
+                arduino.toggleLed(13)
+                #speed = int(input("Speed\n> "))
+                #arduino.drive(Direction.FORWARD, speed)
             elif x == "drive backward":
                 speed = int(input("Speed\n> "))
                 arduino.drive(Direction.BACKWARD, speed)

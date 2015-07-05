@@ -82,9 +82,9 @@ void handleCommand(int command, int data[], int (*results)[MAX_RESPONSE_SIZE]) {
       case STOP:
         carstop();
         break;
-      case MOVE_CAMERA:
-        if ();
-        break;
+      //case MOVE_CAMERA:
+       // if ();
+       // break;
     }
    
   //  if (command == TOGGLE_LED) {
