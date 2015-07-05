@@ -53,7 +53,7 @@ class Arduino:
 
     def awaitAcknowledgement(self, command, callback):
         while self.con.inWaiting() == 0:
-            print "WAAAAAAAAAITING"
+            #print "WAAAAAAAAAITING"
             pass
         response = self.con.read(size=self.con.inWaiting())
         while ord(response[-1]) != 255:
@@ -113,7 +113,7 @@ def printresults(l):
         print "Got: " + str(i)
 
 def main():
-    arduino = Arduino("/dev/tty.usbmodem1421")
+    arduino = Arduino("/dev/tty.usbmodem1411")
     while True:
         try:
             x = raw_input("Command\n> ")
