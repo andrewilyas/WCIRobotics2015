@@ -8,6 +8,7 @@ import numpy as np
 ch = CameraHelper(bottomfov=11,middlefov=29,cameraheight=36,focallength=0.28, pixelheight = 1024)
 image = cv2.imread('TestData/IMG_2156.JPG')
 #print ch.realScreen(350, 0)
+print ch.realScreen(808, 0)
 gray = ch.nonAdaptiveThreshold(ch.grayscaleImage(image))
 gray = ch.resizeImage(gray, 4, 4)[-300:-100, :]
 lines = ch.findLines(ch.grayToRGB(gray))
