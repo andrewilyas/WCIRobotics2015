@@ -8,20 +8,33 @@ class CameraHelper:
     bottomFOV = None
     middleFOV = None
     pixelHeight = None
+    pixelWidth = None
 
-    def __init__(self, cameraheight, focallength, bottomfov, middlefov, pixelheight):
+    def __init__(self, cameraheight, focallength, bottomfov, middlefov, pixelheight, pixelwidth):
         self.cameraHeight = cameraheight
         self.focalLength = focallength
         self.bottomFOV = bottomfov
         self.middleFOV = middlefov
         self.pixelHeight = pixelheight
+        self.pixelWidth = pixelwidth
 
     def thresholdImage(self, image, maxValue=255, blockSize=11, C=2):
         return cv2.adaptiveThreshold(image, maxValue, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, blockSize, C)
 
-    def nonAdaptiveThreshold(self, image, maxval=255, thresh=120):
+    def nonAdaptiveThreshold(self, image, maxval=255, thresh=140):
         ret, thresh = cv2.threshold(image, thresh, maxval, cv2.THRESH_BINARY)
         return thresh
+
+    def colourCount(self, image, minColor, maxColor):
+        BLUE_MIN = np.array(minColor, np.uint8)
+        BLUE_MAX = np.array(maxColor np.uint8)
+
+        dst = cv2.inRange(image, BLUE_MIN, BLUE_MAX)
+        no_blue = cv2.countNonZero(dst)
+        print('The number of blue pixels is: ' + str(no_blue))
+        cv2.namedWindow("opencv")
+        cv2.imshow("opencv",img)
+        cv2.waitKey(0)
 
     def realScreen(self, y, x):
         h = float(self.cameraHeight)
@@ -29,6 +42,7 @@ class CameraHelper:
         m = float(self.middleFOV)
         b = float(self.bottomFOV)
         p = float(self.pixelHeight)
+        pw = float(self.pixelWidth)
         R = sqrt(h**2+m**2)
         sinA = h/R
         cosA = m/R
@@ -37,7 +51,13 @@ class CameraHelper:
         pixToReal = screenHeight/p
         realTriangle = h/(f*sinA + (p/2 - y)*pixToReal*cosA)
         smallTriangleResult = f*cosA - (p/2 - y)*pixToReal*sinA
-        return (realTriangle*smallTriangleResult, 0)
+        vertResult = realTriangle*smallTriangleResult
+
+        #HORIZONTAL STUFF
+        horiConversion = sqrt((h**2 + vertResult**2)/(f**2 + ((p/2 - y)*pixToReal)**2))
+        horiResult = (pw/2-x)*pixToReal*horiConversion
+
+        return (horiResult, vertResult)
 
     def findLinesP(self, image, minLineLength=100, maxLineGap=10):
         edges = cv2.Canny(image,50,150,apertureSize = 3)
