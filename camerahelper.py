@@ -27,14 +27,11 @@ class CameraHelper:
 
     def colourCount(self, image, minColor, maxColor):
         BLUE_MIN = np.array(minColor, np.uint8)
-        BLUE_MAX = np.array(maxColor np.uint8)
+        BLUE_MAX = np.array(maxColor, np.uint8)
 
         dst = cv2.inRange(image, BLUE_MIN, BLUE_MAX)
         no_blue = cv2.countNonZero(dst)
-        print('The number of blue pixels is: ' + str(no_blue))
-        cv2.namedWindow("opencv")
-        cv2.imshow("opencv",img)
-        cv2.waitKey(0)
+        return no_blue
 
     def realScreen(self, y, x):
         h = float(self.cameraHeight)

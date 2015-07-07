@@ -13,18 +13,13 @@ class Heuristics:
         self.image = image
         gray = ch.grayscaleImage(image)
         thresholded = ch.nonAdaptiveThreshold(gray)
-        cutImage = ch.resizeImage(thresholded, 4, 4)[-400:-200, :]#[-1000:-200, :] #TODO: MAKE THIS DYNAMIC
-        cv2.imshow('TITLE', cutImage)
-        cv2.waitKey(0)
-        self.lines = ch.findLines(cutImage)[0]
-        self.lineIMG = ch.findLines(ch.grayToRGB(cutImage))[1]
-        cv2.imshow('TITLE', self.lineIMG)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        #cutImage = ch.resizeImage(thresholded, 4, 4)[-400:-200, :]#[-1000:-200, :] #TODO: MAKE THIS DYNAMIC
+        #self.lines = ch.findLines(cutImage)[0]
+        #self.lineIMG = ch.findLines(ch.grayToRGB(cutImage))[1]
 
     def trafficLight(self):
-        while True:
-            print float(ch.colourCount(self.image, [0, 0, 200], [20, 20, 255]))/float(ch.colourCount(self.image, [0, 200, 0], [20, 255, 20]))
+        ch = self.ch
+        return float(ch.colourCount(self.image, [0, 0, 150], [50, 50, 255]))/float(ch.colourCount(self.image, [0, 100, 0], [50, 255, 50])+0.1)
 
     def lineAngles(self):
         negatives = []

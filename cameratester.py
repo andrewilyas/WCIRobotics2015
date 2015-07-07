@@ -6,10 +6,20 @@ from math import *
 import numpy as np
 from heuristics import Heuristics
 
-h = Heuristics(cv2.imread('TestData/Hello.jpeg'))
-h.threeDimensions()
+cap = cv2.VideoCapture(0)
+while True:
+    ret, frame = cap.read()
+    cv2.imshow('hello', frame)
+    if cv2.waitKey(100) and 0xFF == ord('q'):
+        break
+    #print frame.shape
+    h = Heuristics(frame)
+    print h.trafficLight()
+
+cap.release()
+cv2.destroyAllWindows()
 # #ch = CameraHelper(bottomfov=11,middlefov=29,cameraheight=36,focallength=0.28, pixelheight = 1024)
-# ch = CameraHelper(bottomfov=10,middlefov=19,cameraheight=10.4,focallength=0.36, pixelheight = 1944, pixelwidth = 2592)
+# ch g CameraHelper(bottomfov=10,middlefov=19,cameraheight=10.4,focallength=0.36, pixelheight = 1944, pixelwidth = 2592)
 # image = cv2.imread('TestData/IMG_2156.JPG')
 # #print ch.realScreen(350, 0)
 # print ch.realScreen(1210, 1551)
