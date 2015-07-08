@@ -28,22 +28,22 @@ class Arduino:
         self._arduino = ArduinoApi(connection = self._serialManager)
         self._driveServo = Servo(Pins.DRIVE, connection = self._serialManager)
         self._cameraServo = Servo(Pins.CAMERA, connection = self._serialManager)
-        self._turnServo = Servo(Pins.TURN, connection = self.serialManager)
+        self._turnServo = Servo(Pins.TURN, connection = self._serialManager)
         
     def moveCamera(self, position):
         if position == Position.UP:
             self._cameraServo.write(Constants.CAMERA_UP)
         elif position == Position.DOWN:
             self._cameraServo.write(Constants.CAMERA_DOWN)
-        elif:
+        else:
             raise Exception("Unknown camera position")
 
     def turn(self, direction):
-        if position == Direction.LEFT:
+        if direction == Direction.LEFT:
             self._turnServo.write(Constants.LEFT)
-        elif position == Direction.RIGHT:
+        elif direction == Direction.RIGHT:
             self._turnServo.write(Constants.RIGHT)
-        elif:
+        else:
             raise Exception("Unknown direction")
 
     def drive(self, direction, speed):

@@ -3,3 +3,4 @@ matplotlib
 numpy
 picamera
 pandas
+nanpy
