@@ -4,7 +4,7 @@ from camerahelper import CameraHelper
 import numpy as np
 
 class Heuristics:
-    ch = CameraHelper(bottomfov=10,middlefov=19,cameraheight=10.4,focallength=0.36, pixelheight = 1944/4, pixelwidth = 2592/4)
+    ch = CameraHelper(bottomfov=16,middlefov=55,cameraheight=76,focallength=0.29, pixelheight = 2448, pixelwidth = 3264)
     image = None
     lines = None
 
