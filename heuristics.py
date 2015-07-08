@@ -7,15 +7,22 @@ class Heuristics:
     ch = CameraHelper(bottomfov=16,middlefov=55,cameraheight=76,focallength=0.29, pixelheight = 2448, pixelwidth = 3264)
     image = None
     lines = None
+    pixelOffset = None
+    cutImage = None
 
-    def  __init__(self, image):
+    def  __init__(self, image, camerastats=(16,55,76,0.29,2448,3264)):
         ch = self.ch
         self.image = image
         gray = ch.grayscaleImage(image)
-        thresholded = ch.nonAdaptiveThreshold(gray)
-        #cutImage = ch.resizeImage(thresholded, 4, 4)[-400:-200, :]#[-1000:-200, :] #TODO: MAKE THIS DYNAMIC
-        #self.lines = ch.findLines(cutImage)[0]
-        #self.lineIMG = ch.findLines(ch.grayToRGB(cutImage))[1]
+        thresholded = ch.nonAdaptiveThreshold(gray, thresh=160)
+        ts = thresholded.shape[0]
+        self.cutImage = thresholded[int(-ts*0.40):int(-ts*0.15), :] #TODO: MAKE THIS DYNAMIC
+        try:
+            self.lines = ch.findLines(cutImage)[0]
+            self.lineIMG = ch.findLines(ch.grayToRGB(cutImage))[1]
+        except:
+            self.lines = []
+            self.lineIMG =  image
 
     def trafficLight(self):
         ch = self.ch
