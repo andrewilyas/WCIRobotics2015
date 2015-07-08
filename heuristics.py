@@ -10,19 +10,21 @@ class Heuristics:
     pixelOffset = None
     cutImage = None
 
-    def  __init__(self, image, camerastats=(16,55,76,0.29,2448,3264)):
+    def  __init__(self, image, camerastats=(16,55,76,0.29,2448,3264), thresh=120):
         ch = self.ch
         self.image = image
         gray = ch.grayscaleImage(image)
-        thresholded = ch.nonAdaptiveThreshold(gray, thresh=160)
+        thresholded = ch.nonAdaptiveThreshold(gray, thresh=thresh)
         ts = thresholded.shape[0]
         self.cutImage = thresholded[int(-ts*0.40):int(-ts*0.15), :] #TODO: MAKE THIS DYNAMIC
         try:
-            self.lines = ch.findLines(cutImage)[0]
-            self.lineIMG = ch.findLines(ch.grayToRGB(cutImage))[1]
-        except:
+            lines = ch.findLines(ch.grayToRGB(self.cutImage))
+            self.lines = lines[0]
+            self.lineIMG = lines[1]
+        except Exception, e:
             self.lines = []
-            self.lineIMG =  image
+            self.lineIMG =  self.cutImage
+            print e
 
     def trafficLight(self):
         ch = self.ch
@@ -42,7 +44,9 @@ class Heuristics:
                 pass
         return {
             'Left': degrees(np.mean(negatives)),
-            'Right': degrees(np.mean(positives))
+            'Right': degrees(np.mean(positives)),
+            'LeftStd': np.std(negatives),
+            'RightStd': np.std(positives)
             }
 
     def threeDimensions(self):

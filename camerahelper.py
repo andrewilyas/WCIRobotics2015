@@ -67,7 +67,7 @@ class CameraHelper:
 
     def findLines(self, image):
         edges = cv2.Canny(image,50,150,apertureSize = 3)
-        lines = cv2.HoughLines(edges,1,np.pi/180,50)
+        lines = cv2.HoughLines(edges,1,np.pi/180,20)
         linesArr = []
         for rho,theta in lines[0]:
             a = np.cos(theta)
