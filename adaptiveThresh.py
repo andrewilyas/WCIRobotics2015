@@ -15,7 +15,7 @@ while True:
     h = Heuristics(frame, thresh=thresh)
     cv2.imshow('frame', h.lineIMG)
     lineAngles = h.lineAngles()
-    print "Val: " + str(len(h.lines)*(lineAngles['LeftStd'] + lineAngles['RightStd']))
+    print len(h.lines)*(lineAngles['LeftStd'] + lineAngles['RightStd'])
     if len(h.lines)*(lineAngles['LeftStd'] + lineAngles['RightStd']) < 5 and len(h.lines) < 50 and (lineAngles['Left'] > 45 or lineAngles['Right'] > 45):
         print len(h.lines)
         print lineAngles

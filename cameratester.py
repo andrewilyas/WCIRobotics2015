@@ -11,10 +11,14 @@ from heuristics import Heuristics
 cap = cv2.VideoCapture(0)
 while True:
     ret, frame = cap.read()
-    h = Heuristics(frame)
-    cv2.imshow('hello', h.cutImage)
+    h = Heuristics(frame, thresh=170)
+    if len(h.lines) > 1:
+        print h.threeDimensions()
     if cv2.waitKey(100) and 0xFF == ord('q'):
         break
+    #cv2.imshow('hello', h.cutImage)
+    #if cv2.waitKey(100) and 0xFF == ord('q'):
+    #    break
 
 cap.release()
 cv2.destroyAllWindows()

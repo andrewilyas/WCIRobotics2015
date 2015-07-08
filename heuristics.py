@@ -82,4 +82,4 @@ class Heuristics:
 
         realLeftSlope = float(realLeftTwo[1] - realLeftOne[1]) / float(0.0001 + realLeftTwo[0] - realLeftOne[0])
 
-        print degrees(atan(realRightSlope)), degrees(atan(realLeftSlope))
+        return degrees(atan(realRightSlope)), degrees(atan(realLeftSlope))
