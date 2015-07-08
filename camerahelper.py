@@ -3,29 +3,17 @@ import numpy as np
 from math import *
 
 class CameraHelper:
-    cameraHeight = None
-    focalLength = None
-    bottomFOV = None
-    middleFOV = None
-    pixelHeight = None
-    pixelWidth = None
-
-    def __init__(self, cameraheight, focallength, bottomfov, middlefov, pixelheight, pixelwidth):
-        self.cameraHeight = cameraheight
-        self.focalLength = focallength
-        self.bottomFOV = bottomfov
-        self.middleFOV = middlefov
-        self.pixelHeight = pixelheight
-        self.pixelWidth = pixelwidth
-
-    def thresholdImage(self, image, maxValue=255, blockSize=11, C=2):
+    @staticmethod
+    def thresholdImage(image, maxValue=255, blockSize=11, C=2):
         return cv2.adaptiveThreshold(image, maxValue, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, blockSize, C)
 
-    def nonAdaptiveThreshold(self, image, maxval=255, thresh=140):
+    @staticmethod
+    def nonAdaptiveThreshold(image, maxval=255, thresh=140):
         ret, thresh = cv2.threshold(image, thresh, maxval, cv2.THRESH_BINARY)
         return thresh
 
-    def colourCount(self, image, minColor, maxColor):
+    @staticmethod
+    def colourCount(image, minColor, maxColor):
         BLUE_MIN = np.array(minColor, np.uint8)
         BLUE_MAX = np.array(maxColor, np.uint8)
 
@@ -33,13 +21,14 @@ class CameraHelper:
         no_blue = cv2.countNonZero(dst)
         return no_blue
 
-    def realScreen(self, y, x):
-        h = float(self.cameraHeight)
-        f = float(self.focalLength)
-        m = float(self.middleFOV)
-        b = float(self.bottomFOV)
-        p = float(self.pixelHeight)
-        pw = float(self.pixelWidth)
+    @staticmethod
+    def realScreen(y, x, camerastats):
+        h = float(camerastats['cameraHeight'])
+        f = float(camerastats['focalLength'])
+        m = float(camerastats['middleFOV'])
+        b = float(camerastats['bottomFOV'])
+        p = float(camerastats['pixelHeight'])
+        pw = float(camerastats['pixelWidth'])
         R = sqrt(h**2+m**2)
         sinA = h/R
         cosA = m/R
@@ -56,7 +45,8 @@ class CameraHelper:
 
         return (horiResult, vertResult)
 
-    def findLinesP(self, image, minLineLength=100, maxLineGap=10):
+    @staticmethod
+    def findLinesP(image, minLineLength=100, maxLineGap=10):
         edges = cv2.Canny(image,50,150,apertureSize = 3)
         lines = cv2.HoughLinesP(edges,1,np.pi/180,100,minLineLength,maxLineGap)
         linesArr = []
@@ -65,7 +55,8 @@ class CameraHelper:
             cv2.line(image,(x1,y1),(x2,y2), (255,0,0),2)
         return [linesArr, image]
 
-    def findLines(self, image):
+    @staticmethod
+    def findLines(image):
         edges = cv2.Canny(image,50,150,apertureSize = 3)
         lines = cv2.HoughLines(edges,1,np.pi/180,20)
         linesArr = []
@@ -82,15 +73,19 @@ class CameraHelper:
             cv2.line(image,(x1,y1),(x2,y2),(0,0,255),2)
         return [linesArr, image]
 
+    @staticmethod
     def cropImage(self, image, (startx, endx), (starty, endy)):
         return image[starty:endy, startx:endx]
 
+    @staticmethod
     def grayToRGB(self, image):
         return cv2.cvtColor(image,cv2.COLOR_GRAY2RGB)
 
+    @staticmethod
     def resizeImage(self, image, xfactor, yfactor):
          newx,newy = image.shape[1]/xfactor,image.shape[0]/yfactor #new size (w,h)
          return cv2.resize(image,(newx,newy))
 
+    @staticmethod
     def grayscaleImage(self, image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

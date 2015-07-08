@@ -4,19 +4,20 @@ from camerahelper import CameraHelper
 import numpy as np
 
 class Heuristics:
-    ch = CameraHelper(bottomfov=16,middlefov=55,cameraheight=76,focallength=0.29, pixelheight = 2448, pixelwidth = 3264)
+    camerastats = {'bottomfov': 16, 'middlefov':55, 'cameraheight': 76, 'focallength':0.29, 'pixelheight': 2448, 'pixelwidth': 3264}
     image = None
     lines = None
     pixelOffset = None
     cutImage = None
 
-    def  __init__(self, image, camerastats=(16,55,76,0.29,2448,3264), thresh=120):
-        ch = self.ch
+    def refreshFrame(self, image, camerastats=None):
         self.image = image
         gray = ch.grayscaleImage(image)
         thresholded = ch.nonAdaptiveThreshold(gray, thresh=thresh)
         ts = thresholded.shape[0]
-        self.cutImage = thresholded[int(-ts*0.40):int(-ts*0.15), :] #TODO: MAKE THIS DYNAMIC
+        self.cutImage = thresholded[int(-ts*0.40):int(-ts*0.15), :]
+        if camerastats:
+            self.camerastats = camerastats
         try:
             lines = ch.findLines(ch.grayToRGB(self.cutImage))
             self.lines = lines[0]
