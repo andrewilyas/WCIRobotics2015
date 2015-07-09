@@ -49,7 +49,7 @@ class CameraHelper:
         return (horiResult, vertResult)
 
     @staticmethod
-    def find_lines_probability(image, minLineLength=100, maxLineGap=10):
+    def find_lines_p(image, minLineLength=100, maxLineGap=10):
         edges = cv2.Canny(image, 50, 150, apertureSize=3)
         lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 100, minLineLength, maxLineGap)
         linesArr = []
