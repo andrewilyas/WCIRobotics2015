@@ -38,9 +38,11 @@ class HeuristicHelper:
         }
 
     @staticmethod
-    def get_light_info(self):  # Returns the ratio of red vs green
-        return float(CameraHelper.count_color(self.image, [0, 0, 150], [50, 50, 255])) / float(
-            CameraHelper.count_color(self.image, [0, 100, 0], [50, 255, 50]) + 0.1)
+    def get_light_info(image):  # Returns the ratio of red vs green
+        x = float(CameraHelper.count_color(image, [0, 0, 150], [50, 50, 255]))
+        y = float(CameraHelper.count_color(image, [0, 100, 0], [50, 255, 50]) + 0.1)
+        print str(x) + ", " + str(y)
+        return x / y
 
     def adjust_perspective(lines):
         lineAngles = HeuristicHelper.get_angle_info(lines)
