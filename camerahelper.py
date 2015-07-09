@@ -26,12 +26,13 @@ class CameraHelper:
 
     @staticmethod
     def real_screen(y, x, camera_info = default_camera_info):
-        h = float(camera_info['cameraHeight'])
-        f = float(camera_info['focalLength'])
-        m = float(camera_info['middleFOV'])
-        b = float(camera_info['bottomFOV'])
-        p = float(camera_info['pixelHeight'])
-        pw = float(camera_info['pixelWidth'])
+        print camera_info
+        h = float(camera_info['cameraheight'])
+        f = float(camera_info['focallength'])
+        m = float(camera_info['middlefov'])
+        b = float(camera_info['bottomfov'])
+        p = float(camera_info['pixelheight'])
+        pw = float(camera_info['pixelwidth'])
         R = sqrt(h ** 2 + m ** 2)
         sinA = h / R
         cosA = m / R
