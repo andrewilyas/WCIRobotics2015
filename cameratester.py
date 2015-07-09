@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from camerahelper import CameraHelper
 from math import *
 import numpy as np
-from heuristics import Heuristics
+from heuristichelper import Heuristics
 
 #h = Heuristics(cv2.imread())
 

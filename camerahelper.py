@@ -4,8 +4,12 @@ from math import *
 
 
 class CameraHelper:
+    default_camera_info = {'bottomfov': 16, 'middlefov': 55, 'cameraheight': 76, 'focallength': 0.29,
+                           'pixelheight': 2448,
+                           'pixelwidth': 3264}
+
     @staticmethod
-    def thresholdImage(image, maxValue=255, blockSize=11, C=2):
+    def adaptive_threshold(image, maxValue=255, blockSize=11, C=2):
         return cv2.adaptiveThreshold(image, maxValue, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, blockSize, C)
 
     @staticmethod
@@ -14,22 +18,20 @@ class CameraHelper:
         return thresh
 
     @staticmethod
-    def colourCount(image, minColor, maxColor):
-        BLUE_MIN = np.array(minColor, np.uint8)
-        BLUE_MAX = np.array(maxColor, np.uint8)
-
-        dst = cv2.inRange(image, BLUE_MIN, BLUE_MAX)
-        no_blue = cv2.countNonZero(dst)
-        return no_blue
+    def count_color(image, min_color, max_color):
+        min = np.array(min_color, np.uint8)
+        max = np.array(max_color, np.uint8)
+        dst = cv2.inRange(image, min, max)
+        return cv2.countNonZero(dst)
 
     @staticmethod
-    def realScreen(y, x, camerastats):
-        h = float(camerastats['cameraHeight'])
-        f = float(camerastats['focalLength'])
-        m = float(camerastats['middleFOV'])
-        b = float(camerastats['bottomFOV'])
-        p = float(camerastats['pixelHeight'])
-        pw = float(camerastats['pixelWidth'])
+    def real_screen(y, x, camera_info = default_camera_info):
+        h = float(camera_info['cameraHeight'])
+        f = float(camera_info['focalLength'])
+        m = float(camera_info['middleFOV'])
+        b = float(camera_info['bottomFOV'])
+        p = float(camera_info['pixelHeight'])
+        pw = float(camera_info['pixelWidth'])
         R = sqrt(h ** 2 + m ** 2)
         sinA = h / R
         cosA = m / R
@@ -47,7 +49,7 @@ class CameraHelper:
         return (horiResult, vertResult)
 
     @staticmethod
-    def findLinesP(image, minLineLength=100, maxLineGap=10):
+    def find_lines_probability(image, minLineLength=100, maxLineGap=10):
         edges = cv2.Canny(image, 50, 150, apertureSize=3)
         lines = cv2.HoughLinesP(edges, 1, np.pi / 180, 100, minLineLength, maxLineGap)
         linesArr = []
@@ -75,8 +77,8 @@ class CameraHelper:
         return [linesArr, image]
 
     @staticmethod
-    def cropImage(image, (startx, endx), (starty, endy)):
-        return image[starty:endy, startx:endx]
+    def crop_image(image, (sx, ex), (sy, ey)):
+        return image[sy:ey, sx:ex]
 
     @staticmethod
     def to_color(image):

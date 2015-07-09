@@ -4,13 +4,9 @@ from camerahelper import CameraHelper
 import numpy as np
 
 
-class Heuristics:
-    default_camera_info = {'bottomfov': 16, 'middlefov': 55, 'cameraheight': 76, 'focallength': 0.29,
-                           'pixelheight': 2448,
-                           'pixelwidth': 3264}
-
+class HeuristicHelper:
     @staticmethod
-    def parse_frame(image, thresh, camera_info=default_camera_info):
+    def parse_frame(image, thresh):
         grayscale = CameraHelper.to_grayscale(image)
         thresholded = CameraHelper.non_adaptive_threshold(grayscale, thresh=thresh)
         ts = thresholded.shape[0]
@@ -20,11 +16,6 @@ class Heuristics:
             return [lines[0], lines[1], None]
         except Exception, e:
             return [[], cutImage, e]
-
-    def trafficLight(self):
-        ch = self.ch
-        return float(ch.colourCount(self.image, [0, 0, 150], [50, 50, 255])) / float(
-            ch.colourCount(self.image, [0, 100, 0], [50, 255, 50]) + 0.1)
 
     @staticmethod
     def get_angle_info(lines):
@@ -45,6 +36,11 @@ class Heuristics:
             'LeftStd': np.std(negatives),
             'RightStd': np.std(positives)
         }
+
+    @staticmethod
+    def get_light_info(self):  # Returns the ratio of red vs green
+        return float(CameraHelper.count_color(self.image, [0, 0, 150], [50, 50, 255])) / float(
+            CameraHelper.count_color(self.image, [0, 100, 0], [50, 255, 50]) + 0.1)
 
     def threeDimensions(self):
         ch = self.ch

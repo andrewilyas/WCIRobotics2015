@@ -1,9 +1,9 @@
 import cv2 as cv
-from adaptiveThresh import Thresholding
+from thresholdhelper import ThresholdHelper
 import time
 
 capture = cv.VideoCapture(0)
-threshold = Thresholding.find_threshold(capture)
+threshold = ThresholdHelper.find_threshold(capture)
 
 print "Found threshold %s" % threshold
 

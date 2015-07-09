@@ -1,20 +1,18 @@
 import cv2 as cv
-from heuristics import Heuristics
+from heuristichelper import HeuristicHelper
 from camerahelper import CameraHelper
 
-class Thresholding:
+class ThresholdHelper:
     @staticmethod
-    def check_threshold(image, thresh):
-        lines, image, exception = Heuristics.parse_frame(image, thresh)
+    def check_threshold(image, threshold):
+        lines, image, exception = HeuristicHelper.parse_frame(image, threshold)
         if exception:
             if type(exception).__name__ != "TypeError":
                 raise exception
         else:
-            angles = Heuristics.get_angle_info(lines)
-            print "Found %s lines" % len(lines)
+            angles = HeuristicHelper.get_angle_info(lines)
             if len(lines) < 20 and (len(lines) * (angles['LeftStd'] + angles['RightStd']) < 5) and (
                     angles['Left'] > 45 or angles['Right'] > 45):
-                cv.imshow('frame', image)
                 return True
             else:
                 return False
@@ -24,9 +22,8 @@ class Thresholding:
         thresh = 10
         while True:
             ret, frame = cap.read()
-            cv.imshow('original', frame)
             frame = CameraHelper.resize_image(frame, 4, 4)
-            if Thresholding.check_threshold(frame, thresh):
+            if ThresholdHelper.check_threshold(frame, thresh):
                 return thresh
             thresh += 10
 
