@@ -12,7 +12,7 @@ class Thresholding:
         else:
             angles = Heuristics.get_angle_info(lines)
             print "Found %s lines" % len(lines)
-            if len(lines) < 10 and (len(lines) * (angles['LeftStd'] + angles['RightStd']) < 5) and (
+            if len(lines) < 20 and (len(lines) * (angles['LeftStd'] + angles['RightStd']) < 5) and (
                     angles['Left'] > 45 or angles['Right'] > 45):
                 cv.imshow('frame', image)
                 return True
