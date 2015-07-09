@@ -7,8 +7,6 @@ threshold = Thresholding.find_threshold(capture)
 
 print "Found threshold %s" % threshold
 
-w
-
 time.sleep(100)
 
 capture.release()
