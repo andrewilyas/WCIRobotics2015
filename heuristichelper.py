@@ -42,10 +42,8 @@ class HeuristicHelper:
         return float(CameraHelper.count_color(self.image, [0, 0, 150], [50, 50, 255])) / float(
             CameraHelper.count_color(self.image, [0, 100, 0], [50, 255, 50]) + 0.1)
 
-    def threeDimensions(self):
-        ch = self.ch
-        lineAngles = self.lineAngles()
-        print lineAngles
+    def adjust_perspective(lines):
+        lineAngles = HeuristicHelper.get_angle_info(lines)
         leftSlope = tan(radians(lineAngles['Left']))
         rightSlope = tan(radians(lineAngles['Right']))
 
@@ -55,7 +53,7 @@ class HeuristicHelper:
         minLeftLine = None
         minRightLine = None
 
-        for x1, y1, x2, y2 in self.lines:
+        for x1, y1, x2, y2 in lines:
             slope = float(y2 - y1) / float(0.001 + x2 - x1)
             length = ((y2 - y1) ** 2 + (x2 - x1) ** 2) ** 0.5
             if (abs(slope - leftSlope) < minLeftSlope or minLeftLine == None) and length > 100:
@@ -65,13 +63,13 @@ class HeuristicHelper:
                 minRightSlope = abs(slope - rightSlope)
                 minRightLine = (x1, y1 + 200, x2, y2 + 200)
 
-        realRightOne = ch.realScreen(minRightLine[3], minRightLine[2])
-        realRightTwo = ch.realScreen(minRightLine[1], minRightLine[0])
+        realRightOne = CameraHelper.real_screen(minRightLine[3], minRightLine[2])
+        realRightTwo = CameraHelper.real_screen(minRightLine[1], minRightLine[0])
 
         realRightSlope = float(realRightOne[1] - realRightTwo[1]) / float(0.0001 + realRightOne[0] - realRightTwo[0])
 
-        realLeftOne = ch.realScreen(minLeftLine[3], minLeftLine[2])
-        realLeftTwo = ch.realScreen(minLeftLine[1], minLeftLine[0])
+        realLeftOne = CameraHelper.real_screen(minLeftLine[3], minLeftLine[2])
+        realLeftTwo = CameraHelper.real_screen(minLeftLine[1], minLeftLine[0])
 
         realLeftSlope = float(realLeftTwo[1] - realLeftOne[1]) / float(0.0001 + realLeftTwo[0] - realLeftOne[0])
 
