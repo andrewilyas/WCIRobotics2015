@@ -74,18 +74,18 @@ class CameraHelper:
         return [linesArr, image]
 
     @staticmethod
-    def cropImage(self, image, (startx, endx), (starty, endy)):
+    def cropImage(image, (startx, endx), (starty, endy)):
         return image[starty:endy, startx:endx]
 
     @staticmethod
-    def grayToRGB(self, image):
+    def grayToRGB(image):
         return cv2.cvtColor(image,cv2.COLOR_GRAY2RGB)
 
     @staticmethod
-    def resizeImage(self, image, xfactor, yfactor):
+    def resizeImage(image, xfactor, yfactor):
          newx,newy = image.shape[1]/xfactor,image.shape[0]/yfactor #new size (w,h)
          return cv2.resize(image,(newx,newy))
 
     @staticmethod
-    def grayscaleImage(self, image):
+    def grayscaleImage(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

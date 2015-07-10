@@ -5,20 +5,12 @@ from camerahelper import CameraHelper
 from math import *
 import numpy as np
 from heuristics import Heuristics
+from adaptiveThresh import Thresholding as at
 
 #h = Heuristics(cv2.imread())
 
 cap = cv2.VideoCapture(0)
-while True:
-    ret, frame = cap.read()
-    h = Heuristics(frame, thresh=170)
-    if len(h.lines) > 1:
-        print h.threeDimensions()
-    if cv2.waitKey(100) and 0xFF == ord('q'):
-        break
-    #cv2.imshow('hello', h.cutImage)
-    #if cv2.waitKey(100) and 0xFF == ord('q'):
-    #    break
+print at.findThresh(cap)
 
 cap.release()
 cv2.destroyAllWindows()

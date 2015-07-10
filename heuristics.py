@@ -1,6 +1,6 @@
 import cv2
 from math import *
-from camerahelper import CameraHelper
+from camerahelper import CameraHelper as ch
 import numpy as np
 
 class Heuristics:
@@ -10,7 +10,7 @@ class Heuristics:
     pixelOffset = None
     cutImage = None
 
-    def refreshFrame(self, image, camerastats=None):
+    def refreshFrame(self, image, camerastats=None, thresh=120):
         self.image = image
         gray = ch.grayscaleImage(image)
         thresholded = ch.nonAdaptiveThreshold(gray, thresh=thresh)
