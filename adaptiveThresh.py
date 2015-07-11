@@ -1,6 +1,7 @@
 import cv2
 from heuristics import Heuristics
 from camerahelper import CameraHelper as ch
+from camera_util import Camera
 
 class Thresholding:
     @staticmethod
@@ -17,7 +18,7 @@ class Thresholding:
         thresh = 60
         while True:
             thresh += 10
-            ret, frame = cap.read()
+            ret, frame = cap.read() #TODO: Change this
             h.refreshFrame(frame)
             frame = ch.resizeImage(frame, 4, 4)
             lineAngles = h.lineAngles()
