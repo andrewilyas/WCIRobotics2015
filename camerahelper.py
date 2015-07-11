@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from math import *
-
+#TODO: Change class name to image_helper
 class CameraHelper:
     @staticmethod
     def thresholdImage(image, maxValue=255, blockSize=11, C=2):
