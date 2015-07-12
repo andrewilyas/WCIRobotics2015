@@ -13,12 +13,10 @@ def main_loop():
     h = Heuristics()
     time.sleep(0.1)
     for x in iterator:
-        if Thresholding.checkThresh():
-            image = Camera.read_frame(capture_mode, x, cap)
+        image = Camera.read_frame(capture_mode, x, cap)
+        if Thresholding.checkThresh(image, h):
             h.refreshFrame(image)
             print h.lineAngles()['Right'] > h.lineAngles()['Left']
-            #cv2.imshow("Frame", image)
-            #cv2.waitKey(1)
         else:
             print  "Needs to be rethresholded"
 
