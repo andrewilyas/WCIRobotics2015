@@ -6,12 +6,16 @@ from picamera import *
 import sys
 import cv2
 import time
+import atexit
+
+cap = None
 
 def main_loop():
     capture_mode = str(sys.argv[1])
     cap, cam = Camera.camera_capture_instance(capture_mode)
     iterator = Camera.get_frame_iterator(capture_mode, cap, cam)
     h = Heuristics()
+    time.sleep(0.1)
     for x in iterator:
         if Thresholding.checkThresh():
             image = Camera.read_frame(capture_mode, x, cap)
@@ -22,11 +26,8 @@ def main_loop():
         else:
             print  "Needs to be rethresholded"
 
+def exit_handler():
+    cap.release()
+    cv2.destroyAllWindows()
 
-
-
-
-cap.release()
-cv2.destroyAllWindows()
-
-time.sleep(0.1)
+atexit.register(exit_handler)
