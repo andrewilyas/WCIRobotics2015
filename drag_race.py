@@ -8,11 +8,10 @@ import cv2
 import time
 import atexit
 
-cap = None
+cap, cam = Camera.camera_capture_instance(capture_mode)
 
 def main_loop():
     capture_mode = str(sys.argv[1])
-    cap, cam = Camera.camera_capture_instance(capture_mode)
     iterator = Camera.get_frame_iterator(capture_mode, cap, cam)
     h = Heuristics()
     time.sleep(0.1)
