@@ -9,8 +9,6 @@ import time
 import atexit
 
 cap = None
-main_loop()
-
 
 def main_loop():
     capture_mode = str(sys.argv[1])
@@ -33,3 +31,4 @@ def exit_handler():
     cv2.destroyAllWindows()
 
 atexit.register(exit_handler)
+main_loop()
