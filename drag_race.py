@@ -2,7 +2,7 @@ from adaptiveThresh import Thresholding #static
 from heuristics import Heuristics
 from camerahelper import CameraHelper as ch
 from camera_util import Camera
-#from picamera import PiCamera, PiRGBArray
+from picamera import PiCamera, PiRGBArray
 import sys
 import cv2
 import time

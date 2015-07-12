@@ -1,5 +1,5 @@
 import cv2
-#import picamera
+import picamera
 
 
 class Camera:
