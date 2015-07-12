@@ -15,11 +15,12 @@ def main_loop():
     for x in iterator:
         if Thresholding.checkThresh():
             image = Camera.read_frame(capture_mode, x, cap)
-            cv2.imshow("Frame", image)
-            cv2.waitKey(1)
+            h.refreshFrame(image)
+            print h.lineAngles()['Right'] > h.lineAngles()['Left']
+            #cv2.imshow("Frame", image)
+            #cv2.waitKey(1)
         else:
-            #TODO: Find a way to integrate thresholding into the loop
-            break
+            print  "Needs to be rethresholded"
 
 
 
