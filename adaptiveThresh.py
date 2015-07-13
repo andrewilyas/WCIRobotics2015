@@ -7,11 +7,12 @@ class Thresholding:
     @staticmethod
     def checkThresh(image, heuristic):
         heuristic.refreshFrame(image)
-        lineAngles = heuristic.lineAngles()
-        if len(heuristic.lines)*(lineAngles['LeftStd'] + lineAngles['RightStd']) < 5:
-            return True
-        else:
-            return False
+        #lineAngles = heuristic.lineAngles()
+        return h.cutImage
+        #if len(heuristic.lines)*(lineAngles['LeftStd'] + lineAngles['RightStd']) < 5:
+        #    return True
+        #else:
+        #    return False
 
     @staticmethod
     def findThresh(cap):

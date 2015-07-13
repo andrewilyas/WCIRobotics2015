@@ -19,7 +19,7 @@ def main_loop():
             print h.lineAngles()['Right'] > h.lineAngles()['Left']
         else:
             print  "Needs to be rethresholded"
-            cv2.imwrite(image, "cameratest.png")
+            cv2.imwrite("/tmp/cameratest.png", Thresholding.checkThresh(image, h))
             return
 
 def exit_handler():
