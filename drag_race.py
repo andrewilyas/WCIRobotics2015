@@ -19,6 +19,8 @@ def main_loop():
             print h.lineAngles()['Right'] > h.lineAngles()['Left']
         else:
             print  "Needs to be rethresholded"
+            cv2.imwrite(image, "cameratest.png")
+            return
 
 def exit_handler():
     cap.release()
