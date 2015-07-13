@@ -13,14 +13,20 @@ def main_loop():
     h = Heuristics()
     time.sleep(0.1)
     for x in iterator:
-        image = Camera.read_frame(capture_mode, x, cap)
-        if Thresholding.checkThresh(image, h):
+        image = cv2.flip(Camera.read_frame(capture_mode, x, cap), -1)
+        if image != None:
             h.refreshFrame(image)
-            print h.lineAngles()['Right'] > h.lineAngles()['Left']
+            print h.threeDimensions()
         else:
-            print  "Needs to be rethresholded"
-            cv2.imwrite("/tmp/cameratest.png", Thresholding.checkThresh(image, h))
-            return
+            print "No image"
+        #threshdata = Thresholding.checkThresh(image, h)
+        #if threshdata[0]:
+        #    h.refreshFrame(image)
+        #    print h.lineAngles()['Right'] > h.lineAngles()['Left']
+        #else:
+        #    print threshdata[2]
+        #    cv2.imwrite("/tmp/cameratest.png", threshdata[1])
+        #    return
 
 def exit_handler():
     cap.release()
