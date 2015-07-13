@@ -23,11 +23,11 @@ class Thresholding:
             ret, frame = cap.read() #TODO: Change this
             h.refreshFrame(frame)
             frame = ch.resizeImage(frame, 4, 4)
-            lineAngles = h.lineAngles()
+            lineAngles = h.average_angle()
             cv2.imshow('hi', h.lineIMG)
             if cv2.waitKey(1000) and 0xFF == ord('q'):
                 break
-            if (len(h.lines)*(lineAngles['LeftStd'] + lineAngles['RightStd']) < 5 and len(h.lines) < 50 and (lineAngles['Left'] > 45 or lineAngles['Right'] > 45)):
+            if lineAngles['std_dev'] < 0.1:
                 return thresh
             if thresh > 255:
                 return None
