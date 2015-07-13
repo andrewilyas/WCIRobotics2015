@@ -4,13 +4,13 @@ from camerahelper import CameraHelper as ch
 import numpy as np
 
 class Heuristics:
-    camerastats = {'bottom_fov': 12, 'middle_fov':70, 'camera_height': 21, 'focal_length':0.36, 'pixel_height': 2448, 'pixel_width': 3264}
+    camerastats = {'bottom_fov': 28, 'middle_fov':68, 'camera_height': 21, 'focal_length':0.36, 'pixel_height': 2448, 'pixel_width': 3264}
     image = None
     lines = None
     pixel_offset = None
     cutImage = None
 
-    def refreshFrame(self, image, camerastats=None, thresh=220):
+    def refreshFrame(self, image, camerastats=None, thresh=210):
         self.image = image
         self.camerastats['pixel_width'] = max(image.shape[0], image.shape[1])
         self.camerastats['pixel_height'] = min(image.shape[0], image.shape[1]) 
@@ -60,7 +60,7 @@ class Heuristics:
             length = ((y2-y1)**2 + (x2-x1)**2)**0.5
             if (abs(slope-avg_slope) < min_slope or min_line == None):
                 min_slope = abs(slope-avg_slope)
-                min_line = (x1-self.image.shape[1]/2, (0.25*self.image.shape[0] - y1)+self.pixel_offset, x2-self.image.shape[1]/2, (0.25*self.image.shape[0]-y2)+self.pixel_offset)
+                min_line = (x1, (0.25*self.image.shape[0] - y1)+self.pixel_offset, x2, (0.25*self.image.shape[0]-y2)+self.pixel_offset)
 
 
         real_point_one = ch.realScreen(min_line[3], min_line[2], self.camerastats)

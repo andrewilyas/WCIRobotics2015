@@ -41,8 +41,9 @@ class CameraHelper:
 
         #HORIZONTAL STUFF
         horiConversion = sqrt((h**2 + vertResult**2)/(f**2 + ((p/2 - y)*pixToReal)**2))
-        horiResult = (pw/2-x)*pixToReal*horiConversion
-
+        horiResult = -1.0*(pw/2-x)*pixToReal*horiConversion
+        if vertResult < 0:
+            horiResult = -horiResult
         return (horiResult, vertResult)
 
     @staticmethod
