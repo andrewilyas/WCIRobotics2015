@@ -7,16 +7,19 @@ import sys
 import cv2
 import time
 import atexit
+from arduino import Arduino
+
 
 def main_loop():
     iterator = Camera.get_frame_iterator(capture_mode, cap, cam)
     h = Heuristics()
     time.sleep(0.1)
+    a = Arduino()
     for x in iterator:
         image = cv2.flip(Camera.read_frame(capture_mode, x, cap), -1)
         if image != None:
             h.refreshFrame(image)
-            print h.threeDimensions()
+            a.turn(90-(h.threeDimensions() % 90))
         else:
             print "No image"
         #threshdata = Thresholding.checkThresh(image, h)

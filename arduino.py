@@ -1,23 +1,27 @@
 from nanpy import ArduinoApi, SerialManager, Servo
 import time
 
-def drive_forward(speed):
-	drive.write(speed + 90)
+class Arduino:
+	serial  = SerialManager()
+	arduino = ArduinoApi(connection = serial)
+	drive = None
+	turn = None
+	camera = None
 
-def turn_servo(speed):
-	turn.write(speed)
+	def __init__():
+		arduino.pinMode(13, arduino.OUTPUT)
+		self.drive = Servo(12, connection = serial)
+		self.turn = Servo(9, connection = serial)
+		self.camera = Servo(11, connection = serial)
 
-def stop_car():
-	drive.write(90)
+	def drive_forward(self, speed):
+		self.drive.write(speed + 90)
 
-def move_camera(speed):
-	camera.write(speed)
+	def turn_servo(self, speed):
+		self.turn.write(speed)
 
-serial = SerialManager()
-arduino = ArduinoApi(connection = serial)
-arduino.pinMode(13, arduino.OUTPUT)
-drive = Servo(12, connection = serial)
-turn = Servo(9, connection = serial)
-camera = Servo(11, connection = serial)
+	def stop_car(self):
+		self.drive.write(90)
 
-move_camera(170)
+	def move_camera(self, speed):
+		self.camera.write(speed)
