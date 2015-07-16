@@ -17,7 +17,7 @@ class Thresholding:
     @staticmethod
     def findThresh(cap):
         h = Heuristics()
-        thresh = 60
+        thresh = 0
         while True:
             thresh += 10
             ret, frame = cap.read() #TODO: Change this

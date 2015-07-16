@@ -8,28 +8,32 @@ import cv2
 import time
 import atexit
 from arduino import Arduino
+import numpy as np
 
 
 def main_loop():
     iterator = Camera.get_frame_iterator(capture_mode, cap, cam)
     h = Heuristics()
-    time.sleep(0.1)
     a = Arduino()
+    time.sleep(1)
+    a.move_camera(170)
+    a.drive_forward(10)
     for x in iterator:
         image = cv2.flip(Camera.read_frame(capture_mode, x, cap), -1)
         if image != None:
             h.refreshFrame(image)
-            a.turn(90-(h.threeDimensions() % 90))
+            if True:#len(h.lines) == 0:
+                print "No lines"
+                #a.turn_servo(80)
+            else:
+                angle = h.threeDimensions()
+                if angle < 0:
+                    a.turn_servo(np.max([90-(90+angle)/2, 60]))
+                else:
+                    a.turn_servo(np.min([90+(90-angle)/2, 140]))
+                print angle
         else:
             print "No image"
-        #threshdata = Thresholding.checkThresh(image, h)
-        #if threshdata[0]:
-        #    h.refreshFrame(image)
-        #    print h.lineAngles()['Right'] > h.lineAngles()['Left']
-        #else:
-        #    print threshdata[2]
-        #    cv2.imwrite("/tmp/cameratest.png", threshdata[1])
-        #    return
 
 def exit_handler():
     cap.release()

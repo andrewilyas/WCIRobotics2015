@@ -8,11 +8,11 @@ class Arduino:
 	turn = None
 	camera = None
 
-	def __init__():
-		arduino.pinMode(13, arduino.OUTPUT)
-		self.drive = Servo(12, connection = serial)
-		self.turn = Servo(9, connection = serial)
-		self.camera = Servo(11, connection = serial)
+	def __init__(self):
+		self.arduino.pinMode(13, self.arduino.OUTPUT)
+		self.drive = Servo(12, connection = self.serial)
+		self.turn = Servo(9, connection = self.serial)
+		self.camera = Servo(11, connection = self.serial)
 
 	def drive_forward(self, speed):
 		self.drive.write(speed + 90)
