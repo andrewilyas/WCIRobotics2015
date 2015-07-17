@@ -10,32 +10,33 @@ import atexit
 from arduino import Arduino
 import numpy as np
 
-
+a = Arduino()
 def main_loop():
     iterator = Camera.get_frame_iterator(capture_mode, cap, cam)
     h = Heuristics()
-    a = Arduino()
+    #a = Arduino()
     time.sleep(1)
     a.move_camera(170)
-    a.drive_forward(10)
+    a.drive_forward(11)
     for x in iterator:
         image = cv2.flip(Camera.read_frame(capture_mode, x, cap), -1)
         if image != None:
             h.refreshFrame(image)
-            if True:#len(h.lines) == 0:
+            if len(h.lines) == 0:
                 print "No lines"
                 #a.turn_servo(80)
             else:
                 angle = h.threeDimensions()
                 if angle < 0:
-                    a.turn_servo(np.max([90-(90+angle)/2, 60]))
+                    a.turn_servo(np.max([90-(90+angle)*3/2, 60]))
                 else:
-                    a.turn_servo(np.min([90+(90-angle)/2, 140]))
+                    a.turn_servo(np.min([90+(90-angle)*3/2, 140]))
                 print angle
         else:
             print "No image"
 
 def exit_handler():
+    a.stop_car()
     cap.release()
     cv2.destroyAllWindows()
 

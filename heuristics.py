@@ -17,7 +17,7 @@ class Heuristics:
         gray = ch.grayscaleImage(image)
         thresholded = ch.nonAdaptiveThreshold(gray, thresh=thresh)
         ts = thresholded.shape[0]
-        self.cutImage = thresholded[int(-ts*0.15):int(-ts*0.05), :]
+        self.cutImage = thresholded[int(-ts*0.2):int(-ts*0.1), :]
         self.pixel_offset = int(ts*0.05)
         if camerastats:
             self.camerastats = camerastats
